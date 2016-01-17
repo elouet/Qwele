@@ -4,6 +4,9 @@
 #include <vector>
 #include <cstdlib>
 #include <cstdio>
+#include <cstring>
+
+constexpr int HalfBoard::initialState[6];
 
 /* Simple constructor */
 Awele::Awele(): player( HalfBoard::initialState), opponent( HalfBoard::initialState ) {
@@ -214,7 +217,7 @@ int Awele::letOpponentPlay(){
        @param fill Répartition initiale des graines
        (par exemple {@link Awele#initialState initialState}). 
        @param opp Demi-plateau situé en face. */
-HalfBoard::HalfBoard( const int *fill, HalfBoard *opp ){
+HalfBoard::HalfBoard( const int *fill, HalfBoard *opp ) {
 	int a;
 	for (a = 0 ; a < 6 ; ++a ){
 		origin[a]=false;
@@ -222,6 +225,21 @@ HalfBoard::HalfBoard( const int *fill, HalfBoard *opp ){
 	}
 	opposite = opp;
 }
+
+void HalfBoard::reset(){
+	std::memcpy( seeds, initialState, sizeof(seeds) );
+	seedsTaken = 0;
+}
+
+HalfBoard::HalfBoard( const HalfBoard *c)
+{
+	int a;
+	for (a = 0 ; a < 6 ; ++a ){
+		origin[a]=false;
+		seeds[a] = c->seeds[a];
+	}
+}
+
 
 /** Ce constructeur est utilisé lorsque l'on ne connait pas encore
        le demi-plateau en face. Il est nécéssaire de mettre à jour cette
