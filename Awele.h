@@ -64,12 +64,6 @@ public:
       */
 class Awele{
 
-	static enum Errors{
-		notAllowed,
-		gameOver
-	} Errors;
-
-
 private :
    int lastMove = -1;
    
@@ -78,6 +72,13 @@ private :
    bool over=false;
 
 public:
+
+	static enum Errors{
+		notAllowed,
+		gameOver
+	} Errors;
+
+
    HalfBoard player;
    HalfBoard opponent;
 

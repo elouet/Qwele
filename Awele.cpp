@@ -262,7 +262,7 @@ int HalfBoard::sumSquares(){
 std::string HalfBoard::toString(){
 	char buffer[32];
 
-	std::sprintf( buffer, "%d %d %d %d %d %d", seeds[0], seeds[1], seeds[0], seeds[0], seeds[0], seeds[0] );
+	std::sprintf( buffer, "%d %d %d %d %d %d", seeds[0], seeds[1], seeds[2], seeds[3], seeds[4], seeds[5] );
 	std::string *str = new std::string( buffer );
 	return *str;
 }
@@ -277,7 +277,7 @@ HalfBoard HalfBoard::reverse(){
 
 	HalfBoard hb( reversed );
 
-	return HalfBoard( reversed );
+	return hb;
 }
 
 /** Cette méthode met en place le témoin de départ du jeu: la case
