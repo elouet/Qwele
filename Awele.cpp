@@ -194,9 +194,9 @@ int Awele::letOpponentPlay(){
 	int diflev;
 
 	diflev = difficulty;
-	if (player.sumSquares()+player.sumSquares() < 24 ) { diflev *= 2; }
-	if (player.sumSquares()+player.sumSquares() < 12 ) { diflev *= 2; }
-	if (player.sumSquares()+player.sumSquares() < 6 ) { diflev *= 2; }
+	if (player.sumSquares()+opponent.sumSquares() < 24 ) { diflev += 2; }
+	if (player.sumSquares()+opponent.sumSquares() < 12 ) { diflev += 2; }
+	if (player.sumSquares()+opponent.sumSquares() < 6 ) { diflev += 2; }
 
 	move = this->reverse().bestMove(diflev);
 	if(move >= 0 && move < 6){
@@ -262,7 +262,7 @@ int HalfBoard::sumSquares(){
 std::string HalfBoard::toString(){
 	char buffer[32];
 
-	std::sprintf( buffer, "%d %d %d %d %d %d", seeds[0], seeds[1], seeds[2], seeds[3], seeds[4], seeds[5] );
+	std::sprintf( buffer, "%d %d %d %d %d %d (%d)", seeds[0], seeds[1], seeds[2], seeds[3], seeds[4], seeds[5], seedsTaken );
 	std::string *str = new std::string( buffer );
 	return *str;
 }
@@ -276,6 +276,7 @@ HalfBoard HalfBoard::reverse(){
 		reversed[a]=seeds[5-a];
 
 	HalfBoard hb( reversed );
+	hb.seedsTaken = seedsTaken;
 
 	return hb;
 }
@@ -304,19 +305,19 @@ void HalfBoard::setOrigin(int sq){
        l'invocation de la méthode {@link #handOver handOver}.
        @param at Position de la case à jouer. */
 int HalfBoard::play(int at){
-	int seedsTaken;
+	int seedsPlayed;
 	int score = 0;
 
 	setOrigin(at);
-	seedsTaken = seeds[at];
+	seedsPlayed = seeds[at];
 
 	seeds[at]=0;
 
-	for (at = at+1;at<6 && seedsTaken > 0;at++)
-	{   seeds[at]++;seedsTaken--;}
+	for (at = at+1;at<6 && seedsPlayed > 0;at++)
+	{   seeds[at]++;seedsPlayed--;}
 
-	if (seedsTaken > 0){
-		score = opposite->handOver(seedsTaken);
+	if (seedsPlayed > 0){
+		score = opposite->handOver(seedsPlayed);
 	}
 	return score;
 }
