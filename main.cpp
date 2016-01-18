@@ -4,13 +4,7 @@
 
 int main( int argc, char **argv )
 {
-	const int meseeds[] = {1, 0, 0, 2, 2, 1};
-	const int himseeds[] = {0, 0, 0, 0, 0, 2};
-
- 	HalfBoard me( meseeds );
-	HalfBoard him( himseeds );
-
-	Awele game( &me, &him ); 
+	Awele game;
 
 	game.setDifficultyLevel(8);
 
