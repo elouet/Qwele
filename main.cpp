@@ -4,7 +4,13 @@
 
 int main( int argc, char **argv )
 {
-	Awele game;
+	const int meseeds[] = {1, 0, 0, 2, 2, 1};
+	const int himseeds[] = {0, 0, 0, 0, 0, 2};
+
+ 	HalfBoard me( meseeds );
+	HalfBoard him( himseeds );
+
+	Awele game( &me, &him ); 
 
 	game.setDifficultyLevel(8);
 
@@ -35,6 +41,6 @@ int main( int argc, char **argv )
 				return 0;
 			}
 		}
-	} while ( ! game.gameIsOver() );
+	} while ( ! game.reverse().gameIsOver() );
 
 }
